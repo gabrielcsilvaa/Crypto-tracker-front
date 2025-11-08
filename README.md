@@ -29,17 +29,46 @@ Este repositório contém o frontend em React Native/Expo, integrado ao backend 
 
 ```
 .
-├─ assets/                    # Recursos estáticos
+├─ assets/ # ícones, fontes e imagens
 ├─ src/
-│  ├─ api/                   # Configuração Axios
-│  ├─ components/            # Componentes reutilizáveis
-│  ├─ hooks/                 # Custom hooks (React Query)
-│  ├─ navigation/            # Navegação (tabs/stacks)
-│  ├─ screens/               # Telas principais
-│  ├─ store/                 # Estado global (Zustand)
-│  ├─ theme/                 # Tema e estilos
-│  └─ utils/                 # Helpers
-└─ App.tsx                   # Entry point
+│ ├─ api/
+│ │ ├─ axios.ts # instancia do Axios + interceptors (JWT/refresh)
+│ │ └─ endpoints.ts # rotas do backend (auth, coins, favorites, portfolio, alerts)
+│ ├─ components/
+│ │ ├─ CoinCard.tsx # card da moeda (nome, símbolo, preço, variação, fav)
+│ │ ├─ Chart.tsx # gráfico de preço (days: 7/30/90/365/max)
+│ │ └─ HomePortfolioSummary.tsx # resumo do portfólio no topo da Home
+│ ├─ hooks/
+│ │ ├─ useCoins.ts # lista/paginação/busca de moedas
+│ │ ├─ useCoinDetails.ts # detalhes da moeda
+│ │ ├─ useCoinChart.ts # série histórica p/ gráfico
+│ │ ├─ useFavorites.ts # favoritos (query + mutations add/remove)
+│ │ ├─ usePortfolio.ts # holdings + add/update/remove
+│ │ └─ useAlerts.ts # alertas: list/create/remove
+│ ├─ navigation/
+│ │ ├─ MainTabs.tsx # tabs: Home, Favorites, Portfolio, Alerts, Settings
+│ │ └─ stacks (opcional) # HomeStack, etc. (CoinList → CoinDetails)
+│ ├─ screens/
+│ │ ├─ home/
+│ │ │ ├─ CoinsListScreen.tsx # FlatList c/ paginação, busca, resumo do portfólio
+│ │ │ └─ CoinDetailsScreen.tsx
+│ │ ├─ favorites/FavoritesScreen.tsx
+│ │ ├─ portfolio/PortfolioScreen.tsx
+│ │ ├─ alerts/AlertsScreen.tsx
+│ │ └─ settings/SettingScreen.tsx
+│ ├─ store/
+│ │ ├─ authStore.ts # tokens, user, login/logout/setTokens
+│ │ └─ settingsStore.ts # darkMode + toggle
+│ ├─ theme/ # helpers de tema, tipografia, cores
+│ └─ utils/ # formatadores (número, moeda, datas)
+│
+├─ App.tsx # registra NavigationContainer, QueryClientProvider, tema, etc.
+├─ index.ts # entry Expo
+├─ app.config.ts # Expo config (android.package)
+├─ app.json # metadados (nome, ícones, etc.)
+├─ package.json # dependências/scripts
+├─ tsconfig.json # TS config
+└─ .env # variáveis (API_URL) - não commitar segredos
 ```
 
 ## 🚀 Como rodar
